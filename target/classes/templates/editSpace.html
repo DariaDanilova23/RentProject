@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение помещения</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div id="menu">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="https://urfu.ru/ru/">НИР</a>
+
+
+                <!-- Кнопка для отображения меню на мобильных устройствах https://urfu.ru/ru/ -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Содержимое меню -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/typing}">Тип помещения</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/arendator}">Арендатор</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/space}">Помещение</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container mt-4">
+        <h2>Изменение помещения</h2>
+        <form th:action="@{'/editSpace/' + ${space.id} }" method="post" th:object="${space}"
+            class="row g-3 needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="space_typing" class="form-label">Тип помещения:</label>
+                <select id="space_typing" class="form-select" th:field="*{typing.id}" required>
+                    <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
+                </select>
+                <div class="invalid-feedback">Пожалуйста выберите тип.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="insert_id" class="form-label">Охватывающая область</label>
+                <select class="form-select" id="insert_id" th:field="*{insert_id.id}">
+                    <option th:each="insertSpace : ${allSpaces}" th:value="${insertSpace.id}" th:text="${insertSpace.id}"
+                        th:selected="${space.insert_id != null and space.insert_id.id == insertSpace.id}"></option>
+                </select>
+                <div class="invalid-feedback">Пожалуйста выберите охватывающую область.</div>
+            </div>
+            <div class="mb-3">
+                <label for="base_X" class="form-label">Базовая координата X</label>
+                <input type="text" class="form-control" id="base_X" th:field="*{base_X}" required>
+                <div class="invalid-feedback">Пожалуйста введите базовую координату x.</div>
+            </div>
+            <div class="mb-3">
+                <label for="base_Y" class="form-label">Базовая координата Y</label>
+                <input type="text" class="form-control" id="base_Y" th:field="*{base_Y}" required>
+                <div class="invalid-feedback">Пожалуйста введите базовую координату y.</div>
+            </div>
+            <div class="mb-3">
+                <label for="base_Z" class="form-label">Базовая координата Z</label>
+                <input type="text" class="form-control" id="base_Z" th:field="*{base_Z}" required>
+                <div class="invalid-feedback">Пожалуйста введите базовую координату z.</div>
+            </div>
+            <div class="mb-3">
+                <label for="size_X" class="form-label">Размер по X</label>
+                <input type="text" class="form-control" id="size_X" th:field="*{size_X}" required>
+                <div class="invalid-feedback">Пожалуйста введите размер по x.</div>
+            </div>
+            <div class="mb-3">
+                <label for="size_Y" class="form-label">Размер по Y</label>
+                <input type="text" class="form-control" id="size_Y" th:field="*{size_Y}" required>
+                <div class="invalid-feedback">Пожалуйста введите размер по y.</div>
+            </div>
+            <div class="mb-3">
+                <label for="size_Z" class="form-label">Размер по Z</label>
+                <input type="text" class="form-control" id="size_Z" th:field="*{size_Z}" required>
+                <div class="invalid-feedback">Пожалуйста введите размер по z.</div>
+            </div>
+            <div class="mb-3">
+                <label for="arendator" class="form-label">Арендатор:</label>
+                <select id="arendator" class="form-select" th:field="*{arendator.id}" required>
+                    <option th:each="arend : ${arendators}" th:value="${arend.id}" th:text="${arend.arendator_name}"
+                        th:selected="${space.arendator != null && space.arendator.id == arend.id}"></option>
+                </select>
+                <div class="invalid-feedback">Пожалуйста введите арендатора.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">Цена:</label>
+                <input type="text" class="form-control" id="price" th:field="*{price}" required>
+                <div class="invalid-feedback">Пожалуйста введите цену.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="comment" class="form-label">Комментарий:</label>
+                <input type="text" class="form-control" id="comment" th:field="*{comment}">
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+        <a href="/space" class="btn btn-secondary">Назад</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
