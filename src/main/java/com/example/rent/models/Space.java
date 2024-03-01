@@ -30,6 +30,8 @@ public class Space {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "insert_id", nullable = true)
     private Space insert_id;  // Ссылка на родительское пространство
+    @OneToMany(mappedBy = "insert_id", cascade = CascadeType.ALL)
+    private List<Space> childSpaces;
     
     private float base_X;	//Базовая координата  X		
     private float base_Y;	// Базовая координата   Y		
